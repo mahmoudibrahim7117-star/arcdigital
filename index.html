@@ -91,6 +91,7 @@
             font-weight: 700;
             font-size: 0.95rem;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         nav a:hover, nav a.active {
@@ -532,10 +533,10 @@
 
         <nav>
             <ul>
-                <li><a href="#" class="nav-link active" onclick="switchPage('home', event)">الرئيسية والباقات</a></li>
-                <li><a href="#" class="nav-link" onclick="switchPage('explanation', event)">شرح الباقات</a></li>
-                <li><a href="#" class="nav-link" onclick="switchPage('about', event)">عن المنصة</a></li>
-                <li><a href="#" class="nav-link" onclick="switchPage('contact', event)">تواصل معنا</a></li>
+                <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية والباقات</a></li>
+                <li><a class="nav-link" onclick="switchPage('explanation', event)">شرح الباقات</a></li>
+                <li><a class="nav-link" onclick="switchPage('about', event)">عن المنصة</a></li>
+                <li><a class="nav-link" onclick="switchPage('contact', event)">تواصل معنا</a></li>
                 <li>
                     <button class="cart-btn" onclick="switchPage('cart', event)">
                         <i class="fas fa-shopping-cart"></i> عربة التسوق
@@ -747,7 +748,7 @@
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active-page'));
 
-            const navLinks = document.querySelectorAll('.nav-link');
+            const navLinks = document.querySelectorAll('nav a');
             navLinks.forEach(link => link.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active-page');
