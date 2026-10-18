@@ -82,6 +82,7 @@
             display: flex;
             list-style: none;
             gap: 25px;
+            align-items: center;
         }
 
         nav a {
@@ -95,6 +96,34 @@
         nav a:hover, nav a.active {
             color: var(--purple-primary);
             text-shadow: 0 0 10px var(--purple-glow);
+        }
+
+        /* زر عربة التسوق في الهيدر */
+        .cart-btn {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--purple-primary);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .cart-btn:hover {
+            background: var(--purple-primary);
+            box-shadow: 0 0 15px var(--purple-glow);
+        }
+
+        .cart-badge {
+            background: var(--pink-accent);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 50%;
         }
 
         .header-badges {
@@ -321,7 +350,70 @@
             box-shadow: 0 6px 22px rgba(139, 92, 246, 0.6);
         }
 
-        /* صفحة الشرح والتفاصيل */
+        /* تصميم صفحة عربة التسوق */
+        .cart-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            margin-top: 1.5rem;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cart-table th, .cart-table td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cart-table th {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--blue-accent);
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .cart-total {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            color: var(--blue-accent);
+        }
+
+        .btn-checkout {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-checkout:hover {
+            transform: scale(1.02);
+        }
+
+        /* صفحات أخرى */
         .details-container {
             background: var(--bg-card);
             border-radius: 20px;
@@ -417,6 +509,8 @@
             nav ul {
                 gap: 12px;
                 font-size: 0.85rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .hero h1 {
                 font-size: 2.1rem;
@@ -428,7 +522,7 @@
 
     <div class="glow-bg"></div>
 
-    <!-- الهيدر والتنقل بدون شعار -->
+    <!-- الهيدر والتنقل -->
     <header>
         <div class="header-badges">
             <div class="uae-badge">
@@ -439,9 +533,15 @@
         <nav>
             <ul>
                 <li><a href="#" class="nav-link active" onclick="switchPage('home', event)">الرئيسية والباقات</a></li>
-                <li><a href="#" class="nav-link" onclick="switchPage('explanation', event)">شرح الباقات والمميزات</a></li>
+                <li><a href="#" class="nav-link" onclick="switchPage('explanation', event)">شرح الباقات</a></li>
                 <li><a href="#" class="nav-link" onclick="switchPage('about', event)">عن المنصة</a></li>
                 <li><a href="#" class="nav-link" onclick="switchPage('contact', event)">تواصل معنا</a></li>
+                <li>
+                    <button class="cart-btn" onclick="switchPage('cart', event)">
+                        <i class="fas fa-shopping-cart"></i> عربة التسوق
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </button>
+                </li>
             </ul>
         </nav>
 
@@ -481,7 +581,7 @@
                         <li><i class="fas fa-check-circle"></i> زر محادثة واتساب مباشر وتفاعلي</li>
                         <li><i class="fas fa-check-circle"></i> نموذج استقبال واستبيان طلبات العملاء</li>
                     </ul>
-                    <button class="btn-order" onclick="sendOrder('BASIC', '119 AED')">طلب الباقة الأساسية</button>
+                    <button class="btn-order" onclick="addToCart('باقة BASIC', 119)">إضافة إلى عربة التسوق 🛒</button>
                 </div>
             </div>
 
@@ -509,7 +609,7 @@
                         <li><i class="fas fa-check-circle"></i> تهيئة محركات البحث الأساسية (SEO)</li>
                         <li><i class="fas fa-check-circle"></i> شهادة أمان SSL مجانية وتشفير البيانات</li>
                     </ul>
-                    <button class="btn-order" onclick="sendOrder('STANDARD', '399 AED')">طلب الباقة القياسية</button>
+                    <button class="btn-order" onclick="addToCart('باقة STANDARD', 399)">إضافة إلى عربة التسوق 🛒</button>
                 </div>
             </div>
 
@@ -536,30 +636,50 @@
                         <li><i class="fas fa-check-circle"></i> ربط بكسل التسويق (TikTok & Meta Pixel)</li>
                         <li><i class="fas fa-check-circle"></i> دعم فني وصيانة مجانية لمدة شهرين</li>
                     </ul>
-                    <button class="btn-order" onclick="sendOrder('PREMIUM', '899 AED')">طلب الباقة المميزة</button>
+                    <button class="btn-order" onclick="addToCart('باقة PREMIUM', 899)">إضافة إلى عربة التسوق 🛒</button>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- صفحة عربة التسوق وتأكيد الطلب -->
+    <section id="cart" class="page-section">
+        <div class="cart-container">
+            <h2 class="details-title">🛒 عربة التسوق الخاصة بك</h2>
+            <div style="overflow-x: auto;">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>المنتج / الباقة</th>
+                            <th>السعر</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items-body">
+                        <!-- يتم تعبئتها ديناميكياً -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="cart-total" id="cart-total-price">المجموع الكلي: 0 AED</div>
+            <button class="btn-checkout" onclick="checkoutToWhatsApp()">تأكيد الطلب عبر الواتساب 📲</button>
+        </div>
+    </section>
+
     <!-- صفحة شرح الباقات والمميزات -->
     <section id="explanation" class="page-section">
         <div class="details-container">
             <h2 class="details-title">الدليل التفصيلي للباقات والمميزات</h2>
-            
             <div class="detail-box">
                 <h3>⚡ 1. باقة BASIC (بسعر 119 درهم بدلاً من 238 درهم)</h3>
-                <p>صُممت هذه الباقة خصيصاً لأصحاب المشاريع الناشئة أو الإعلانات السريعة على تيك توك وإنستغرام. تمكنك من الحصول على صفحة هبوط ذات تحويل عالي (High-Converting Landing Page) تشرح خدماتك أو منتجك الرئيسي بوضوح مع إمكانية تحويل العميل مباشرة للواتساب.</p>
+                <p>صُممت هذه الباقة خصيصاً لأصحاب المشاريع الناشئة أو الإعلانات السريعة على تيك توك وإنستغرام.</p>
             </div>
-
             <div class="detail-box">
                 <h3>🚀 2. باقة STANDARD (بسعر 399 درهم بدلاً من 798 درهم)</h3>
-                <p>الحل المثالي للشركات والمكاتب والأعمال التي تحتاج حضوراً رسمياً. تتيح لك إضافة صفحات مثل (عن الشركة، خدماتنا، معرض الأعمال، اتصل بنا) مع لوحة تحكم تمكنك من تعديل النصوص والصور بنفسك في أي وقت.</p>
+                <p>الحل المثالي للشركات والمكاتب والأعمال التي تحتاج حضوراً رسمياً متعدد الصفحات.</p>
             </div>
-
             <div class="detail-box">
                 <h3>👑 3. باقة PREMIUM (بسعر 899 درهم بدلاً من 1,798 درهم)</h3>
-                <p>المنصة المتكاملة للتجارة الإلكترونية والمتاجر الحقيقية. تشمل بناء متجر كامل مجهز بسلة شراء، ربط الدفع الإلكتروني المباشر مثل Apple Pay والبطاقات البنكية، بالإضافة لربط أكواد التتبع والتسويق لفيسبوك وتيك توك لمعرفة نتائج إعلاناتك بدقة.</p>
+                <p>المنصة المتكاملة للتجارة الإلكترونية والمتاجر الحقيقية وبوابات الدفع الإلكترونية.</p>
             </div>
         </div>
     </section>
@@ -569,7 +689,7 @@
         <div class="details-container">
             <h2 class="details-title">عن ARC DIGITAL 🇦🇪</h2>
             <p style="font-size: 1.1rem; color: #e5e7eb; line-height: 1.8;">
-                نحن استوديو تطوير رقمي إماراتي يهدف إلى تمكين أصحاب الأعمال والمستقلين من امتلاك مواقع ومتاجر إلكترونية احترافية بأعلى معايير السرعة والأمان والتصميم الفخم، وبأسعار تنافسية تناسب الجميع. نؤمن بأن كل فكرة تستحق أن تظهر للعالم بأفضل صورة رقمية ممكنة.
+                نحن استوديو تطوير رقمي إماراتي يهدف إلى تمكين أصحاب الأعمال والمستقلين من امتلاك مواقع ومتاجر إلكترونية احترافية بأعلى معايير السرعة والأمان والتصميم الفخم.
             </p>
         </div>
     </section>
@@ -617,34 +737,87 @@
         <p class="uae-proud">🇦🇪 بكل فخر.. صناعة إماراتية 🇦🇪</p>
     </footer>
 
-    <!-- السكربتات -->
+    <!-- السكربتات وبرمجية عربة التسوق -->
     <script>
+        let cart = [];
+
         function switchPage(pageId, event) {
             if(event) event.preventDefault();
             
-            // إخفاء كل الصفحات
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active-page'));
 
-            // إلغاء تفعيل الروابط
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
 
-            // إظهار الصفحة المطلوبة
             document.getElementById(pageId).classList.add('active-page');
 
-            // تفعيل الرابط
-            if(event && event.target) {
+            if(event && event.target && event.target.classList.contains('nav-link')) {
                 event.target.classList.add('active');
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function sendOrder(packageName, price) {
-            const myPhoneNumber = "971503664412"; // تم ضبط الرقم الإماراتي الصحيح
-            const message = encodeURIComponent(`مرحباً ARC DIGITAL 👋\nأود الاستفادة من خصم 50% وطلب باقة: *${packageName}* بسعر: *${price}*\nالرجاء إرسال الخطوات القادمة.`);
-            window.open(`https://wa.me/${myPhoneNumber}?text=${message}`, '_blank');
+        function addToCart(packageName, price) {
+            cart.push({ name: packageName, price: price });
+            updateCartUI();
+            alert(`تمت إضافة "${packageName}" إلى عربة التسوق بنجاح! 🛒`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItemsBody = document.getElementById('cart-items-body');
+            const cartTotalPrice = document.getElementById('cart-total-price');
+
+            cartCount.innerText = cart.length;
+            cartItemsBody.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted);">عربة التسوق فارغة حالياً</td></tr>`;
+                cartTotalPrice.innerText = 'المجموع الكلي: 0 AED';
+                return;
+            }
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItemsBody.innerHTML += `
+                    <tr>
+                        <td><b>${item.name}</b></td>
+                        <td style="color: var(--blue-accent); font-weight: bold;">${item.price} AED</td>
+                        <td><button class="remove-btn" onclick="removeFromCart(${index})">حذف</button></td>
+                    </tr>
+                `;
+            });
+
+            cartTotalPrice.innerText = `المجموع الكلي: ${total} AED`;
+        }
+
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) {
+                alert('عربة التسوق فارغة! يرجى إضافة باقة واحدة على الأقل قبل تأكيد الطلب.');
+                return;
+            }
+
+            const myPhoneNumber = "971503664412";
+            let message = `مرحباً ARC DIGITAL 👋\nأرغب في تأكيد الطلب التالي:\n\n`;
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                message += `${index + 1}. *${item.name}* - *${item.price} AED*\n`;
+                total += item.price;
+            });
+
+            message += `\n💰 *المجموع الكلي:* *${total} AED*\nالرجاء إرسال خطوات الدفع والتنفيذ.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${myPhoneNumber}?text=${encodedMessage}`, '_blank');
         }
     </script>
 </body>
