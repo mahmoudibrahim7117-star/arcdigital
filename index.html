@@ -22,7 +22,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
     body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; position: relative; padding-bottom: 80px; }
 
-    /* Atmosphere Glows */
     .bg-glow-1, .bg-glow-2 {
       position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(150px); z-index: -1; pointer-events: none;
       animation: pulseGlow 6s infinite alternate ease-in-out;
@@ -35,7 +34,6 @@
       100% { transform: scale(1.35) translate(-40px, 40px); opacity: 0.5; }
     }
 
-    /* Header & Bar */
     header {
       position: sticky; top: 0; z-index: 1000; background: rgba(3, 3, 5, 0.92); backdrop-filter: blur(25px);
       border-bottom: 2px solid var(--accent-red); padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
@@ -48,18 +46,14 @@
     }
     .logo span { color: var(--accent-red); text-shadow: 0 0 20px var(--accent-red); }
 
-    /* Currency Box Styling */
     .currency-box {
       display: flex; align-items: center; gap: 8px; background: rgba(255, 0, 60, 0.15); border: 2px solid var(--accent-red);
       padding: 6px 14px; border-radius: 12px; box-shadow: 0 0 15px var(--accent-red-glow);
     }
     .currency-box label { font-weight: 800; font-size: 0.9rem; color: #fff; }
-    .currency-picker {
-      background: transparent; border: none; color: #fff; font-weight: 900; font-size: 1rem; outline: none; cursor: pointer;
-    }
+    .currency-picker { background: transparent; border: none; color: #fff; font-weight: 900; font-size: 1rem; outline: none; cursor: pointer; }
     .currency-picker option { background: #09090e; color: #fff; }
 
-    /* Hero Banner */
     .hero { text-align: center; padding: 50px 20px 25px; position: relative; }
     .hero-title {
       font-size: 3.4rem; font-weight: 900; line-height: 1.15;
@@ -69,7 +63,6 @@
     }
     .hero-subtitle { color: var(--text-muted); font-size: 1.2rem; max-width: 680px; margin: 0 auto 30px; }
 
-    /* Filters Bar */
     .filters-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 45px; padding: 0 20px; }
     .filter-btn {
       background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 60, 0.25); color: #fff; padding: 12px 28px;
@@ -80,7 +73,6 @@
       background: var(--accent-red); border-color: var(--accent-red-bright); box-shadow: 0 0 30px var(--accent-red-glow); transform: translateY(-3px);
     }
 
-    /* Products Grid */
     .container { max-width: 1300px; margin: 0 auto; padding: 0 25px; }
     .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 32px; }
 
@@ -115,7 +107,6 @@
     }
     .btn-buy:hover { box-shadow: 0 8px 35px var(--accent-red-glow); transform: translateY(-2px); }
 
-    /* Modal */
     .modal {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(20px); z-index: 2000;
       display: none; justify-content: center; align-items: center; padding: 20px;
@@ -149,8 +140,6 @@
 
   <header>
     <div class="logo"><i class="fa-solid fa-bolt"></i> ARC <span>STORE</span></div>
-    
-    <!-- Currency Selector Box -->
     <div class="currency-box">
       <i class="fa-solid fa-coins" style="color:var(--accent-red)"></i>
       <label for="currencySelect">العملة:</label>
@@ -167,14 +156,12 @@
     <p class="hero-subtitle">اشتراكات VIP، خدمات نمو الحسابات، وبطاقات التفعيل بأفضل الأداء والسرعة.</p>
   </section>
 
-  <!-- Dynamic Filters Bar -->
   <div class="filters-container" id="filtersContainer"></div>
 
   <main class="container">
     <div class="products-grid" id="grid"></div>
   </main>
 
-  <!-- Checkout Modal -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
@@ -186,7 +173,7 @@
         <div class="form-group">
           <label id="qtyLabel">الكمية المطلوبة</label>
           <input type="number" id="orderQty" class="form-control" oninput="recalcPrice()">
-          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.8rem; display: none; margin-top: 5px;">* الحد الأدنى لطلب النمو هو 250 عدداً</small>
+          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.8rem; display: none; margin-top: 5px;">* الحد الأدنى للطلب هو 250 عدداً</small>
         </div>
 
         <div class="form-group">
@@ -219,25 +206,19 @@
     const symbols = { USD: '$', AED: 'AED', SAR: 'SAR' };
     let selectedCurrency = 'USD';
 
-    // Default Categories
     const defaultCategories = [
-      { id: 'subs', name: 'الاشتراكات', icon: 'fa-crown' },
-      { id: 'cards', name: 'بطاقات وألعاب', icon: 'fa-gamepad' },
-      { id: 'boost', name: 'دعم ونمو الحسابات', icon: 'fa-rocket' }
+      { id: 'subs', name: 'الاشتراكات', type: 'unit', icon: 'fa-crown' },
+      { id: 'boost', name: 'دعم ونمو الحسابات', type: 'boost', icon: 'fa-rocket' }
     ];
 
     const defaultProducts = [
       {
-        id: '1', title: 'اشتراك نتفليكس VIP شهر', category: 'subs', priceUSD: 5.00, unitPrice: true,
+        id: '1', title: 'اشتراك نتفليكس VIP شهر', category: 'subs', priceUSD: 5.00,
         image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=600&q=80', desc: 'حساب Ultra HD 4K ملف شخصي برقم سري وخاص بك.'
       },
       {
-        id: '2', title: 'اشتراك شاهد VIP الرياضية', category: 'subs', priceUSD: 8.50, unitPrice: true,
-        image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&q=80', desc: 'شاهد الدوريات والمسلسلات بجودة عالية بدون إعلانات.'
-      },
-      {
-        id: '3', title: 'متابعين تيك توك حقيقيين', category: 'boost', priceUSD: 3.50, unitPrice: false,
-        image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80', desc: 'تزويد سريع وثبات عالي للحساب (السعر لكل 1000 متابع - الحد الأدنى 250).'
+        id: '2', title: 'متابعين تيك توك حقيقيين', category: 'boost', priceUSD: 3.50,
+        image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80', desc: 'تزويد سريع وثبات عالي للحساب (السعر لكل 1000 متابع).'
       }
     ];
 
@@ -247,6 +228,7 @@
     let settings = JSON.parse(localStorage.getItem('arc_settings')) || { whatsapp: '971500000000' };
 
     let currentProd = null;
+    let currentCat = null;
     let payMethod = 'card';
     let currentCategoryFilter = 'all';
 
@@ -264,10 +246,9 @@
       `;
 
       categories.forEach(cat => {
-        const iconClass = cat.icon || 'fa-tag';
         container.innerHTML += `
           <button class="filter-btn" onclick="filterCat('${cat.id}', this)">
-            <i class="fa-solid ${iconClass}"></i> ${cat.name}
+            <i class="fa-solid ${cat.icon || 'fa-tag'}"></i> ${cat.name}
           </button>
         `;
       });
@@ -285,16 +266,18 @@
       }
 
       list.forEach(p => {
+        const cat = categories.find(c => c.id === p.category);
+        const isBoost = cat ? (cat.type === 'boost') : false;
         const basePrice = p.priceUSD || p.price || 0;
         const convertedPrice = (basePrice * rates[selectedCurrency]).toFixed(2);
-        const priceDisplay = p.unitPrice ? `${convertedPrice} ${symbols[selectedCurrency]}` : `${convertedPrice} ${symbols[selectedCurrency]} / 1000`;
+        const priceDisplay = isBoost ? `${convertedPrice} ${symbols[selectedCurrency]} / 1000` : `${convertedPrice} ${symbols[selectedCurrency]}`;
 
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
           <div class="card-img-box">
             <img src="${p.image}" class="card-img" alt="${p.title}">
-            <span class="card-badge">${getCatName(p.category)}</span>
+            <span class="card-badge">${cat ? cat.name : 'قسم'}</span>
           </div>
           <div class="card-body">
             <div>
@@ -311,11 +294,6 @@
       });
     }
 
-    function getCatName(catId) {
-      const found = categories.find(c => c.id === catId);
-      return found ? found.name : 'منتج رقمي';
-    }
-
     function filterCat(cat, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -326,11 +304,14 @@
       currentProd = products.find(p => p.id === id);
       if(!currentProd) return;
 
+      currentCat = categories.find(c => c.id === currentProd.category);
+      const isBoost = currentCat ? (currentCat.type === 'boost') : false;
+
       document.getElementById('modalTitle').innerText = currentProd.title;
       const qtyInput = document.getElementById('orderQty');
       const qtyNotice = document.getElementById('qtyNotice');
 
-      if (currentProd.category === 'boost' || !currentProd.unitPrice) {
+      if (isBoost) {
         qtyInput.value = 250;
         qtyInput.min = 250;
         qtyInput.step = 50;
@@ -351,8 +332,9 @@
     function recalcPrice() {
       if(!currentProd) return;
       const qty = parseFloat(document.getElementById('orderQty').value) || 0;
+      const isBoost = currentCat ? (currentCat.type === 'boost') : false;
       const basePrice = currentProd.priceUSD || currentProd.price || 0;
-      let totalUSD = currentProd.unitPrice ? qty * basePrice : (qty / 1000) * basePrice;
+      let totalUSD = isBoost ? (qty / 1000) * basePrice : qty * basePrice;
       const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2);
       document.getElementById('totalCost').innerText = `${totalConverted} ${symbols[selectedCurrency]}`;
     }
@@ -366,15 +348,16 @@
     function executeOrder(e) {
       e.preventDefault();
       const qty = parseFloat(document.getElementById('orderQty').value);
+      const isBoost = currentCat ? (currentCat.type === 'boost') : false;
 
-      if ((currentProd.category === 'boost' || !currentProd.unitPrice) && qty < 250) {
-        alert('أقل كمية لخدمات النمو هي 250!');
+      if (isBoost && qty < 250) {
+        alert('أقل كمية لخدمات هذا القسم هي 250!');
         return;
       }
 
       const target = document.getElementById('targetUrl').value;
       const basePrice = currentProd.priceUSD || currentProd.price || 0;
-      let totalUSD = currentProd.unitPrice ? qty * basePrice : (qty / 1000) * basePrice;
+      let totalUSD = isBoost ? (qty / 1000) * basePrice : qty * basePrice;
       const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2) + ' ' + symbols[selectedCurrency];
 
       const newOrder = {
