@@ -1,825 +1,734 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARC DIGITAL | أرك ديجيتال - صناعة إماراتية 🇦🇪</title>
-    <!-- خط تجوال من جوجل -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <!-- مكتبة أيقونات FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-main: #06030b;
-            --bg-card: #110822;
-            --purple-primary: #8b5cf6;
-            --purple-glow: rgba(139, 92, 246, 0.5);
-            --blue-accent: #00d2ff;
-            --pink-accent: #ec4899;
-            --text-light: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: rgba(139, 92, 246, 0.3);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARC STORE | متجر الخدمات الرقمية</title>
+  <!-- خط Cairo لسهولة القراءة والوضوح العالي -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <!-- أيقونات Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-            scroll-behavior: smooth;
-        }
+  <style>
+    /* Reset & CSS Variables */
+    :root {
+      --bg-main: #0a0a0c;
+      --bg-card: #141419;
+      --bg-input: #1f1f26;
+      --accent-red: #ff1e42;
+      --accent-red-hover: #e01738;
+      --text-white: #ffffff;
+      --text-gray: #b3b3c2;
+      --border-color: #2e2e3a;
+      --success-green: #00d26a;
+    }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-light);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
 
-        .glow-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.2) 0%, transparent 45%),
-                radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.15) 0%, transparent 45%);
-        }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-white);
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
 
-        /* الهيدر وشريط التنقل */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 5%;
-            background: rgba(6, 3, 11, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    /* Navbar */
+    header {
+      background: rgba(20, 20, 25, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--accent-red);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text-white);
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .logo-text {
-            font-size: 1.6rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #fff 0%, var(--purple-primary) 50%, var(--blue-accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .logo span {
+      color: var(--accent-red);
+    }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-            align-items: center;
-        }
+    .admin-btn {
+      background: transparent;
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+    .admin-btn:hover {
+      background: var(--accent-red);
+      color: var(--text-white);
+      box-shadow: 0 0 15px rgba(255, 30, 66, 0.4);
+    }
 
-        nav a:hover, nav a.active {
-            color: var(--purple-primary);
-            text-shadow: 0 0 10px var(--purple-glow);
-        }
+    /* Hero Banner */
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: radial-gradient(circle at center, rgba(255, 30, 66, 0.15) 0%, transparent 70%);
+      margin-bottom: 30px;
+    }
 
-        /* زر عربة التسوق في الهيدر */
-        .cart-btn {
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid var(--purple-primary);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            transition: 0.3s;
-        }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
 
-        .cart-btn:hover {
-            background: var(--purple-primary);
-            box-shadow: 0 0 15px var(--purple-glow);
-        }
+    .hero p {
+      color: var(--text-gray);
+      font-size: 1.1rem;
+    }
 
-        .cart-badge {
-            background: var(--pink-accent);
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 2px 7px;
-            border-radius: 50%;
-        }
+    /* Platform Filters */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
 
-        .header-badges {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-white);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .uae-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #fff;
-        }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      box-shadow: 0 0 10px rgba(255, 30, 66, 0.3);
+    }
 
-        .page-section {
-            display: none;
-            padding: 3rem 5% 5rem 5%;
-            max-width: 1300px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s ease-in-out forwards;
-        }
+    /* Products Grid */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        .page-section.active-page {
-            display: block;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* الرئيسية */
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem 2rem 1rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+    .product-card:hover {
+      border-color: var(--accent-red);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
 
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            line-height: 1.25;
-            background: linear-gradient(to right, #ffffff, #c084fc, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .platform-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(255, 30, 66, 0.2);
+      color: var(--accent-red);
+      border: 1px solid var(--accent-red);
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
+    .product-icon {
+      font-size: 2.5rem;
+      color: var(--accent-red);
+      margin-bottom: 15px;
+    }
 
-        /* بطاقات الباقات */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    .product-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
 
-        .card {
-            background: var(--bg-card);
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: all 0.4s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
+    .product-desc {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      min-height: 40px;
+    }
 
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--purple-primary);
-            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.35);
-        }
+    .product-price {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--text-white);
+      margin-bottom: 15px;
+    }
 
-        .card.featured {
-            border: 2px solid var(--purple-primary);
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.35);
-        }
+    .product-price span {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      font-weight: 400;
+    }
 
-        .discount-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #ef4444, #f97316);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 900;
-            z-index: 10;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-        }
+    .order-btn {
+      width: 100%;
+      background: var(--accent-red);
+      color: var(--text-white);
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: linear-gradient(135deg, var(--purple-primary), var(--blue-accent));
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            z-index: 10;
-        }
+    .order-btn:hover {
+      background: var(--accent-red-hover);
+    }
 
-        .card-img-wrapper {
-            width: 100%;
-            height: 190px;
-            overflow: hidden;
-        }
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-        .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      padding: 25px;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
 
-        .card:hover .card-img {
-            transform: scale(1.08);
-        }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
 
-        .card-body {
-            padding: 1.8rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-gray);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-        .card-title {
-            font-size: 1.7rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 0.3rem;
-        }
+    .close-btn:hover {
+      color: var(--accent-red);
+    }
 
-        .price-box {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 0.8rem;
-        }
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-        .old-price {
-            font-size: 1.1rem;
-            color: #ef4444;
-            text-decoration: line-through;
-            font-weight: 700;
-        }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-white);
+    }
 
-        .current-price {
-            font-size: 1.7rem;
-            font-weight: 900;
-            color: var(--blue-accent);
-        }
+    .form-control {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-white);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+    }
 
-        .card-subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
+    .form-control:focus {
+      border-color: var(--accent-red);
+    }
 
-        .delivery-time {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(139, 92, 246, 0.15);
-            color: #c084fc;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            width: fit-content;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-        }
+    /* Tables (Admin Orders) */
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
 
-        .features-list {
-            list-style: none;
-            margin-bottom: 2rem;
-            flex-grow: 1;
-        }
+    .orders-table th, .orders-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      text-align: right;
+    }
 
-        .features-list li {
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #e5e7eb;
-            font-size: 0.92rem;
-        }
+    .orders-table th {
+      background: var(--bg-input);
+      color: var(--accent-red);
+    }
 
-        .features-list li i {
-            color: var(--purple-primary);
-        }
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
 
-        .btn-order {
-            width: 100%;
-            padding: 0.95rem;
-            background: linear-gradient(135deg, var(--purple-primary) 0%, #6d28d9 100%);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--purple-glow);
-        }
+    .status-pending { background: #d97706; color: white; }
+    .status-completed { background: #059669; color: white; }
 
-        .btn-order:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 22px rgba(139, 92, 246, 0.6);
-        }
+    /* Admin Tab Navigation */
+    .admin-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
 
-        /* تصميم صفحة عربة التسوق */
-        .cart-container {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid var(--border-color);
-            margin-top: 1.5rem;
-        }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-gray);
+      padding: 8px 15px;
+      cursor: pointer;
+      font-weight: 700;
+    }
 
-        .cart-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-            margin-bottom: 2rem;
-        }
+    .tab-btn.active {
+      color: var(--accent-red);
+      border-bottom: 2px solid var(--accent-red);
+    }
 
-        .cart-table th, .cart-table td {
-            padding: 15px;
-            text-align: right;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .cart-table th {
-            background: rgba(139, 92, 246, 0.2);
-            color: var(--blue-accent);
-        }
-
-        .remove-btn {
-            background: #ef4444;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .cart-total {
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            text-align: left;
-            color: var(--blue-accent);
-        }
-
-        .btn-checkout {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: #fff;
-            border: none;
-            width: 100%;
-            padding: 1rem;
-            border-radius: 14px;
-            font-size: 1.2rem;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            transition: 0.3s;
-        }
-
-        .btn-checkout:hover {
-            transform: scale(1.02);
-        }
-
-        /* صفحات أخرى */
-        .details-container {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid var(--border-color);
-            margin-top: 1.5rem;
-        }
-
-        .details-title {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--purple-primary);
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-        }
-
-        .detail-box {
-            margin-bottom: 2rem;
-        }
-
-        .detail-box h3 {
-            font-size: 1.4rem;
-            color: var(--blue-accent);
-            margin-bottom: 0.8rem;
-        }
-
-        .detail-box p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        /* الاتصال والفوتر */
-        .contact-bar {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--purple-primary);
-        }
-
-        .contact-item div h4 {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .contact-item div p {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #fff;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2.5rem 1rem;
-            background: #040207;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        footer strong {
-            color: var(--purple-primary);
-        }
-
-        .uae-proud {
-            margin-top: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            nav ul {
-                gap: 12px;
-                font-size: 0.85rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .hero h1 {
-                font-size: 2.1rem;
-            }
-        }
-    </style>
+    /* Helper Utilities */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+  </style>
 </head>
 <body>
 
-    <div class="glow-bg"></div>
-
-    <!-- الهيدر والتنقل -->
-    <header>
-        <div class="header-badges">
-            <div class="uae-badge">
-                <span>🇦🇪 صناعة إماراتية</span>
-            </div>
-        </div>
-
-        <nav>
-            <ul>
-                <li><a class="nav-link active" onclick="switchPage('home', event)">الرئيسية والباقات</a></li>
-                <li><a class="nav-link" onclick="switchPage('explanation', event)">شرح الباقات</a></li>
-                <li><a class="nav-link" onclick="switchPage('about', event)">عن المنصة</a></li>
-                <li><a class="nav-link" onclick="switchPage('contact', event)">تواصل معنا</a></li>
-                <li>
-                    <button class="cart-btn" onclick="switchPage('cart', event)">
-                        <i class="fas fa-shopping-cart"></i> عربة التسوق
-                        <span id="cart-count" class="cart-badge">0</span>
-                    </button>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="logo-container">
-            <span class="logo-text">ARC DIGITAL</span>
-        </div>
-    </header>
-
-    <!-- الصفحة الرئيسية / الباقات -->
-    <main id="home" class="page-section active-page">
-        <section class="hero">
-            <h1>أفكارك.. نُحولها إلى واقع رقمي مبهر</h1>
-            <p>خصم حصري لفترة محدودة 50% على جميع خدمات إنشاء وتطوير المواقع والمتاجر الإلكترونية</p>
-        </section>
-
-        <div class="cards-grid">
-            <!-- باقة BASIC -->
-            <div class="card">
-                <span class="discount-badge">خصم 50% OFF</span>
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Basic Package" class="card-img">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">BASIC</h3>
-                    <div class="price-box">
-                        <span class="old-price">238 AED</span>
-                        <span class="current-price">119 AED</span>
-                    </div>
-                    <p class="card-subtitle">صفحة هبوط تعريفية سريعة وعصرية.</p>
-                    <div class="delivery-time">
-                        <i class="far fa-clock"></i> مدة التسليم: من يوم إلى يومين (1 - 2 يوم)
-                    </div>
-                    <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> صفحة هبوط احترافية (Landing Page)</li>
-                        <li><i class="fas fa-check-circle"></i> تصميم حديث متجاوب 100% مع الجوال</li>
-                        <li><i class="fas fa-check-circle"></i> ربط حسابات التواصل الاجتماعي</li>
-                        <li><i class="fas fa-check-circle"></i> زر محادثة واتساب مباشر وتفاعلي</li>
-                        <li><i class="fas fa-check-circle"></i> نموذج استقبال واستبيان طلبات العملاء</li>
-                    </ul>
-                    <button class="btn-order" onclick="addToCart('باقة BASIC', 119)">إضافة إلى عربة التسوق 🛒</button>
-                </div>
-            </div>
-
-            <!-- باقة STANDARD -->
-            <div class="card featured">
-                <span class="discount-badge">خصم 50% OFF</span>
-                <div class="badge">الأكثر طلباً 🔥</div>
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Standard Package" class="card-img">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">STANDARD</h3>
-                    <div class="price-box">
-                        <span class="old-price">798 AED</span>
-                        <span class="current-price">399 AED</span>
-                    </div>
-                    <p class="card-subtitle">موقع متكامل للشركات والمؤسسات.</p>
-                    <div class="delivery-time">
-                        <i class="far fa-clock"></i> مدة التسليم: من يومين إلى 3 أيام (2 - 3 أيام)
-                    </div>
-                    <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> موقع متعدد الصفحات (3 إلى 5 صفحات)</li>
-                        <li><i class="fas fa-check-circle"></i> لوحة تحكم سهلة جداً لإدارة المحتوى</li>
-                        <li><i class="fas fa-check-circle"></i> ربط دومين مخصص باسم مشروعك</li>
-                        <li><i class="fas fa-check-circle"></i> تهيئة محركات البحث الأساسية (SEO)</li>
-                        <li><i class="fas fa-check-circle"></i> شهادة أمان SSL مجانية وتشفير البيانات</li>
-                    </ul>
-                    <button class="btn-order" onclick="addToCart('باقة STANDARD', 399)">إضافة إلى عربة التسوق 🛒</button>
-                </div>
-            </div>
-
-            <!-- باقة PREMIUM -->
-            <div class="card">
-                <span class="discount-badge">خصم 50% OFF</span>
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Premium Package" class="card-img">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-title">PREMIUM</h3>
-                    <div class="price-box">
-                        <span class="old-price">1,798 AED</span>
-                        <span class="current-price">899 AED</span>
-                    </div>
-                    <p class="card-subtitle">متجر إلكتروني متكامل للبيع المباشر.</p>
-                    <div class="delivery-time">
-                        <i class="far fa-clock"></i> مدة التسليم: 7 أيام فقط
-                    </div>
-                    <ul class="features-list">
-                        <li><i class="fas fa-check-circle"></i> متجر إلكتروني أو منصة تجارية متكاملة</li>
-                        <li><i class="fas fa-check-circle"></i> ربط بوابات الدفع (Apple Pay / بطاقات)</li>
-                        <li><i class="fas fa-check-circle"></i> سلة تسوق وإدارة منتجات بلا حدود</li>
-                        <li><i class="fas fa-check-circle"></i> ربط بكسل التسويق (TikTok & Meta Pixel)</li>
-                        <li><i class="fas fa-check-circle"></i> دعم فني وصيانة مجانية لمدة شهرين</li>
-                    </ul>
-                    <button class="btn-order" onclick="addToCart('باقة PREMIUM', 899)">إضافة إلى عربة التسوق 🛒</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- صفحة عربة التسوق وتأكيد الطلب -->
-    <section id="cart" class="page-section">
-        <div class="cart-container">
-            <h2 class="details-title">🛒 عربة التسوق الخاصة بك</h2>
-            <div style="overflow-x: auto;">
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>المنتج / الباقة</th>
-                            <th>السعر</th>
-                            <th>إجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-items-body">
-                        <!-- يتم تعبئتها ديناميكياً -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="cart-total" id="cart-total-price">المجموع الكلي: 0 AED</div>
-            <button class="btn-checkout" onclick="checkoutToWhatsApp()">تأكيد الطلب عبر الواتساب 📲</button>
-        </div>
-    </section>
-
-    <!-- صفحة شرح الباقات والمميزات -->
-    <section id="explanation" class="page-section">
-        <div class="details-container">
-            <h2 class="details-title">الدليل التفصيلي للباقات والمميزات</h2>
-            <div class="detail-box">
-                <h3>⚡ 1. باقة BASIC (بسعر 119 درهم بدلاً من 238 درهم)</h3>
-                <p>صُممت هذه الباقة خصيصاً لأصحاب المشاريع الناشئة أو الإعلانات السريعة على تيك توك وإنستغرام.</p>
-            </div>
-            <div class="detail-box">
-                <h3>🚀 2. باقة STANDARD (بسعر 399 درهم بدلاً من 798 درهم)</h3>
-                <p>الحل المثالي للشركات والمكاتب والأعمال التي تحتاج حضوراً رسمياً متعدد الصفحات.</p>
-            </div>
-            <div class="detail-box">
-                <h3>👑 3. باقة PREMIUM (بسعر 899 درهم بدلاً من 1,798 درهم)</h3>
-                <p>المنصة المتكاملة للتجارة الإلكترونية والمتاجر الحقيقية وبوابات الدفع الإلكترونية.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- صفحة عن المنصة -->
-    <section id="about" class="page-section">
-        <div class="details-container">
-            <h2 class="details-title">عن ARC DIGITAL 🇦🇪</h2>
-            <p style="font-size: 1.1rem; color: #e5e7eb; line-height: 1.8;">
-                نحن استوديو تطوير رقمي إماراتي يهدف إلى تمكين أصحاب الأعمال والمستقلين من امتلاك مواقع ومتاجر إلكترونية احترافية بأعلى معايير السرعة والأمان والتصميم الفخم.
-            </p>
-        </div>
-    </section>
-
-    <!-- صفحة تواصل معنا -->
-    <section id="contact" class="page-section">
-        <div class="details-container">
-            <h2 class="details-title">تواصل معنا المباشر</h2>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <p style="font-size: 1.2rem; color: #fff;"><i class="fab fa-whatsapp" style="color: var(--purple-primary);"></i> <strong>واتساب المبيعات:</strong> +971503664412</p>
-                <p style="font-size: 1.2rem; color: #fff;"><i class="far fa-envelope" style="color: var(--purple-primary);"></i> <strong>البريد الإلكتروني:</strong> arcstore98@gmail.com</p>
-                <p style="font-size: 1.2rem; color: #fff;"><i class="fas fa-map-marker-alt" style="color: var(--purple-primary);"></i> <strong>المقر الرئيسي:</strong> دولة الإمارات العربية المتحدة 🇦🇪</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- بار الاتصال السفلي -->
-    <div class="contact-bar">
-        <div class="contact-item">
-            <i class="fab fa-whatsapp"></i>
-            <div>
-                <h4>تواصل عبر الواتساب</h4>
-                <p>+971503664412</p>
-            </div>
-        </div>
-        <div class="contact-item">
-            <i class="far fa-envelope"></i>
-            <div>
-                <h4>البريد الإلكتروني</h4>
-                <p>arcstore98@gmail.com</p>
-            </div>
-        </div>
-        <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <div>
-                <h4>المقر الرئيسي</h4>
-                <p>الإمارات العربية المتحدة 🇦🇪</p>
-            </div>
-        </div>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-bolt"></i>
+      ARC <span>STORE</span>
     </div>
+    <button class="admin-btn" onclick="openAdminAuth()">
+      <i class="fa-solid fa-user-shield"></i> لوحة التحكم
+    </button>
+  </header>
 
-    <!-- الفوتر -->
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 <strong>ARC DIGITAL</strong> | YOUR IDEAS . OUR DEVELOPMENT</p>
-        <p class="uae-proud">🇦🇪 بكل فخر.. صناعة إماراتية 🇦🇪</p>
-    </footer>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>متجر <span style="color: var(--accent-red);">ARC STORE</span> لخدمات الدعم والتزويد</h1>
+    <p>أسرع وأفضل خدمات زيادة المشاهدات والمتابعين لكافة منصات التواصل الاجتماعي</p>
+  </section>
 
-    <!-- السكربتات وبرمجية عربة التسوق -->
-    <script>
-        let cart = [];
+  <!-- Platform Filters -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCategory('all', this)">
+      <i class="fa-solid fa-border-all"></i> الكل
+    </button>
+    <button class="filter-btn" onclick="filterCategory('tiktok', this)">
+      <i class="fa-brands fa-tiktok"></i> تيك توك
+    </button>
+    <button class="filter-btn" onclick="filterCategory('instagram', this)">
+      <i class="fa-brands fa-instagram"></i> إنستغرام
+    </button>
+    <button class="filter-btn" onclick="filterCategory('youtube', this)">
+      <i class="fa-brands fa-youtube"></i> يوتيوب
+    </button>
+    <button class="filter-btn" onclick="filterCategory('snapchat', this)">
+      <i class="fa-brands fa-snapchat"></i> سناب شات
+    </button>
+  </div>
 
-        function switchPage(pageId, event) {
-            if(event) event.preventDefault();
-            
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(page => page.classList.remove('active-page'));
+  <!-- Products Container -->
+  <main class="container">
+    <div class="grid" id="productsGrid">
+      <!-- المنتجات تُحمل هنا ديناميكياً -->
+    </div>
+  </main>
 
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => link.classList.remove('active'));
+  <!-- Modal: طلب خدمة -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalProductTitle">طلب خدمة</h3>
+        <button class="close-btn" onclick="closeModal('orderModal')">&times;</button>
+      </div>
+      <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+        <input type="hidden" id="orderProductId">
+        
+        <div class="form-group">
+          <label>الكمية المطلوبة</label>
+          <input type="number" id="orderQuantity" class="form-control" min="100" step="100" value="1000" oninput="calculatePrice()" required>
+        </div>
 
-            document.getElementById(pageId).classList.add('active-page');
+        <div class="form-group">
+          <label>رابط الحساب / المقطع</label>
+          <input type="url" id="orderTargetUrl" class="form-control" placeholder="https://..." required>
+        </div>
 
-            if(event && event.target && event.target.classList.contains('nav-link')) {
-                event.target.classList.add('active');
-            }
+        <div class="form-group">
+          <label>السعر الإجمالي Estimate</label>
+          <div style="font-size: 1.5rem; font-weight: 900; color: var(--accent-red);" id="calculatedPrice">0.00 $</div>
+        </div>
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        <button type="submit" class="order-btn" style="background: var(--success-green); margin-top: 15px;">
+          <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر الواتساب
+        </button>
+      </form>
+    </div>
+  </div>
 
-        function addToCart(packageName, price) {
-            cart.push({ name: packageName, price: price });
-            updateCartUI();
-            alert(`تمت إضافة "${packageName}" إلى عربة التسوق بنجاح! 🛒`);
-        }
+  <!-- Modal: تسجيل دخول Admin -->
+  <div class="modal" id="authModal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>دخول لوحة التحكم</h3>
+        <button class="close-btn" onclick="closeModal('authModal')">&times;</button>
+      </div>
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label>الرمز السرّي</label>
+          <input type="password" id="adminPasswordInput" class="form-control" placeholder="أدخل كلمة السر" required>
+        </div>
+        <button type="submit" class="order-btn">دخول</button>
+      </form>
+    </div>
+  </div>
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
+  <!-- Modal: لوحة التحكم الإدارية -->
+  <div class="modal" id="adminDashboardModal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-sliders"></i> إدارة ARC STORE</h3>
+        <button class="close-btn" onclick="closeModal('adminDashboardModal')">&times;</button>
+      </div>
 
-        function updateCartUI() {
-            const cartCount = document.getElementById('cart-count');
-            const cartItemsBody = document.getElementById('cart-items-body');
-            const cartTotalPrice = document.getElementById('cart-total-price');
+      <!-- Admin Tabs -->
+      <div class="admin-tabs">
+        <button class="tab-btn active" onclick="switchAdminTab('productsTab', this)">المنتجات</button>
+        <button class="tab-btn" onclick="switchAdminTab('ordersTab', this)">سجل الطلبات السرّي</button>
+        <button class="tab-btn" onclick="switchAdminTab('settingsTab', this)">إعدادات الرقم والرمز</button>
+      </div>
 
-            cartCount.innerText = cart.length;
-            cartItemsBody.innerHTML = '';
+      <!-- Tab 1: المنتجات -->
+      <div id="productsTab" class="admin-tab-content">
+        <button class="order-btn" style="margin-bottom: 20px; width: auto;" onclick="openAddProductModal()">
+          <i class="fa-solid fa-plus"></i> إضافة خدمة جديدة
+        </button>
+        <div id="adminProductsList"></div>
+      </div>
 
-            if (cart.length === 0) {
-                cartItemsBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted);">عربة التسوق فارغة حالياً</td></tr>`;
-                cartTotalPrice.innerText = 'المجموع الكلي: 0 AED';
-                return;
-            }
+      <!-- Tab 2: سجل الطلبات -->
+      <div id="ordersTab" class="admin-tab-content hidden">
+        <p style="color: var(--text-gray); font-size: 0.85rem; margin-bottom: 10px;">* الطلبات المحفوظة سرياً داخل متصفحك عند إجراء العميل لعملية الشراء.</p>
+        <div style="overflow-x: auto;">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>الخدمة</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+                <th>الرابط</th>
+                <th>الحالة</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                cartItemsBody.innerHTML += `
-                    <tr>
-                        <td><b>${item.name}</b></td>
-                        <td style="color: var(--blue-accent); font-weight: bold;">${item.price} AED</td>
-                        <td><button class="remove-btn" onclick="removeFromCart(${index})">حذف</button></td>
-                    </tr>
-                `;
-            });
+      <!-- Tab 3: الإعدادات -->
+      <div id="settingsTab" class="admin-tab-content hidden">
+        <form onsubmit="saveSettings(event)">
+          <div class="form-group">
+            <label>رقم الواتساب لاستلام الطلبات (مع رمز الدولة)</label>
+            <input type="text" id="whatsappNumberInput" class="form-control" placeholder="971501234567" required>
+          </div>
+          <div class="form-group">
+            <label>تغيير رمز دخول لوحة التحكم</label>
+            <input type="password" id="newAdminPasswordInput" class="form-control" placeholder="كلمة السر الجديدة">
+          </div>
+          <button type="submit" class="order-btn">حفظ الإعدادات</button>
+        </form>
+      </div>
 
-            cartTotalPrice.innerText = `المجموع الكلي: ${total} AED`;
-        }
+    </div>
+  </div>
 
-        function checkoutToWhatsApp() {
-            if (cart.length === 0) {
-                alert('عربة التسوق فارغة! يرجى إضافة باقة واحدة على الأقل قبل تأكيد الطلب.');
-                return;
-            }
+  <!-- Modal: إضافة/تعديل منتج -->
+  <div class="modal" id="productFormModal">
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3 id="productFormTitle">إضافة خدمة جديدة</h3>
+        <button class="close-btn" onclick="closeModal('productFormModal')">&times;</button>
+      </div>
+      <form onsubmit="handleProductSave(event)">
+        <input type="hidden" id="editProductId">
+        
+        <div class="form-group">
+          <label>اسم الخدمة</label>
+          <input type="text" id="prodTitle" class="form-control" placeholder="مثال: زيادات متابعين تيك توك" required>
+        </div>
 
-            const myPhoneNumber = "971503664412";
-            let message = `مرحباً ARC DIGITAL 👋\nأرغب في تأكيد الطلب التالي:\n\n`;
-            
-            let total = 0;
-            cart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}* - *${item.price} AED*\n`;
-                total += item.price;
-            });
+        <div class="form-group">
+          <label>المنصة</label>
+          <select id="prodCategory" class="form-control" required>
+            <option value="tiktok">تيك توك</option>
+            <option value="instagram">إنستغرام</option>
+            <option value="youtube">يوتيوب</option>
+            <option value="snapchat">سناب شات</option>
+          </select>
+        </div>
 
-            message += `\n💰 *المجموع الكلي:* *${total} AED*\nالرجاء إرسال خطوات الدفع والتنفيذ.`;
+        <div class="form-group">
+          <label>السعر لكل 1000 عدد ($)</label>
+          <input type="number" step="0.01" id="prodPricePer1000" class="form-control" placeholder="2.50" required>
+        </div>
 
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${myPhoneNumber}?text=${encodedMessage}`, '_blank');
-        }
-    </script>
-</body>
-</html>
+        <div class="form-group">
+          <label>الوصف القصير</label>
+          <textarea id="prodDesc" class="form-control" rows="2" placeholder="سرعة عالية - ضمان 30 يوم..."></textarea>
+        </div>
+
+        <button type="submit" class="order-btn">حفظ الخدمة</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Initial Data Defaults
+    const defaultProducts = [
+      { id: '1', title: 'متابعين تيك توك حقيقيين', category: 'tiktok', pricePer1000: 3.50, desc: 'حسابات حقيقية بدون نقص، سرعة البدء خلال دقائق' },
+      { id: '2', title: 'مشاهدات تيك توك سريع جداً', category: 'tiktok', pricePer1000: 0.10, desc: 'تزويد فوري بأسعار تنافسية للغاية' },
+      { id: '3', title: 'متابعين إنستغرام متفاعلين', category: 'instagram', pricePer1000: 2.80, desc: 'متابعين عالي الجودة مع ضمان إعادة التعبئة' },
+      { id: '4', title: 'لايكات إنستغرام فوري', category: 'instagram', pricePer1000: 0.80, desc: 'وصول لايكات حقيقية للمنشورات والريلز' },
+      { id: '5', title: 'مشتركين يوتيوب ثبات عالي', category: 'youtube', pricePer1000: 12.00, desc: 'مشتركين ميزتهم الثبات والضمان' },
+      { id: '6', title: 'متابعين سناب شات', category: 'snapchat', pricePer1000: 8.50, desc: 'زيادة متابعين ملفات شخصية سناب شات' }
+    ];
+
+    let products = JSON.parse(localStorage.getItem('arc_products')) || defaultProducts;
+    let orders = JSON.parse(localStorage.getItem('arc_orders')) || [];
+    let settings = JSON.parse(localStorage.getItem('arc_settings')) || {
+      whatsapp: '966500000000',
+      password: '1234'
+    };
+
+    let selectedProduct = null;
+
+    // Save Storage Helpers
+    function saveData() {
+      localStorage.setItem('arc_products', JSON.stringify(products));
+      localStorage.setItem('arc_orders', JSON.stringify(orders));
+      localStorage.setItem('arc_settings', JSON.stringify(settings));
+    }
+
+    // Render Products Grid
+    function renderProducts(categoryFilter = 'all') {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+
+      const filtered = categoryFilter === 'all' 
+        ? products 
+        : products.filter(p => p.category === categoryFilter);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-gray);">لا توجد خدمات متوفرة في هذا القسم حالياً.</p>`;
+        return;
+      }
+
+      filtered.forEach(prod => {
+        let iconClass = 'fa-solid fa-bolt';
+        if (prod.category === 'tiktok') iconClass = 'fa-brands fa-tiktok';
+        if (prod.category === 'instagram') iconClass = 'fa-brands fa-instagram';
+        if (prod.category === 'youtube') iconClass = 'fa-brands fa-youtube';
+        if (prod.category === 'snapchat') iconClass = 'fa-brands fa-snapchat';
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <span class="platform-badge">${getCategoryName(prod.category)}</span>
+          <i class="${iconClass} product-icon"></i>
+          <h3 class="product-title">${prod.title}</h3>
+          <p class="product-desc">${prod.desc || ''}</p>
+          <div class="product-price">${prod.pricePer1000}$ <span>/ لكل 1000</span></div>
+          <button class="order-btn" onclick="openOrderModal('${prod.id}')">
+            <i class="fa-solid fa-cart-plus"></i> اطلب الآن
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function getCategoryName(cat) {
+      const map = { tiktok: 'تيك توك', instagram: 'إنستغرام', youtube: 'يوتيوب', snapchat: 'سناب شات' };
+      return map[cat] || cat;
+    }
+
+    // Category Filter Buttons
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderProducts(cat);
+    }
+
+    // Order Modal & Calculation
+    function openOrderModal(prodId) {
+      selectedProduct = products.find(p => p.id === prodId);
+      if (!selectedProduct) return;
+
+      document.getElementById('modalProductTitle').innerText = selectedProduct.title;
+      document.getElementById('orderProductId').value = selectedProduct.id;
+      document.getElementById('orderQuantity').value = 1000;
+      document.getElementById('orderTargetUrl').value = '';
+      
+      calculatePrice();
+      openModal('orderModal');
+    }
+
+    function calculatePrice() {
+      if (!selectedProduct) return;
+      const qty = parseFloat(document.getElementById('orderQuantity').value) || 0;
+      const total = (qty / 1000) * selectedProduct.pricePer1000;
+      document.getElementById('calculatedPrice').innerText = total.toFixed(2) + ' $';
+    }
+
+    // Handle Order Submission
+    function handleOrderSubmit(e) {
+      e.preventDefault();
+      const qty = document.getElementById('orderQuantity').value;
+      const targetUrl = document.getElementById('orderTargetUrl').value;
+      const total = ((qty / 1000) * selectedProduct.pricePer1000).toFixed(2);
+
+      // 1. Create order record secretly in localStorage
+      const newOrder = {
+        id: 'ORD-' + Date.now(),
+        productTitle: selectedProduct.title,
+        quantity: qty,
+        totalPrice: total + ' $',
+        targetUrl: targetUrl,
+        status: 'قيد الانتظار',
+        date: new Date().toLocaleString('ar-EG')
+      };
+
+      orders.unshift(newOrder);
+      saveData();
+
+      // 2. Format WhatsApp Message
+      const message = `*طلب جديد من متجر ARC STORE* ⚡\n\n` +
+        `• *الخدمة:* ${selectedProduct.title}\n` +
+        `• *الكمية:* ${qty}\n` +
+        `• *السعر الإجمالي:* ${total} $\n` +
+        `• *الرابط/الحساب:* ${targetUrl}\n\n` +
+        `يرجى تاكيد الطلب والبدء بالتنفيذ.`;
+
+      const whatsappUrl = `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(message)}`;
+
+      closeModal('orderModal');
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Admin Auth
+    function openAdminAuth() {
+      openModal('authModal');
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const pass = document.getElementById('adminPasswordInput').value;
+      if (pass === settings.password) {
+        closeModal('authModal');
+        document.getElementById('adminPasswordInput').value = '';
+        openAdminDashboard();
+      } else {
+        alert('كلمة السر غير صحيحة!');
+      }
+    }
+
+    // Admin Dashboard Logic
+    function openAdminDashboard() {
+      renderAdminProducts();
+      renderAdminOrders();
+      document.getElementById('whatsappNumberInput').value = settings.whatsapp;
+      openModal('adminDashboardModal');
+    }
+
+    function switchAdminTab(tabId, btn) {
+      document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.remove('hidden');
+      btn.classList.add('active');
+    }
+
+    // Admin Product Management
+    function renderAdminProducts() {
+      const container = document.getElementById('adminProductsList');
+      container.innerHTML = '';
+
+      products.forEach(p => {
+        const item = document.createElement('div');
+        item.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: var(--bg-input); padding: 10px 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var
