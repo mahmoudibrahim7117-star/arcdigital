@@ -167,12 +167,8 @@
     <p class="hero-subtitle">اشتراكات VIP، خدمات نمو الحسابات، وبطاقات التفعيل بأفضل الأداء والسرعة.</p>
   </section>
 
-  <div class="filters-container">
-    <button class="filter-btn active" onclick="filterCat('all', this)"><i class="fa-solid fa-fire"></i> الكل</button>
-    <button class="filter-btn" onclick="filterCat('subs', this)"><i class="fa-solid fa-crown"></i> الاشتراكات</button>
-    <button class="filter-btn" onclick="filterCat('cards', this)"><i class="fa-solid fa-gamepad"></i> بطاقات وألعاب</button>
-    <button class="filter-btn" onclick="filterCat('boost', this)"><i class="fa-solid fa-rocket"></i> دعم ونمو الحسابات</button>
-  </div>
+  <!-- Dynamic Filters Bar -->
+  <div class="filters-container" id="filtersContainer"></div>
 
   <main class="container">
     <div class="products-grid" id="grid"></div>
@@ -223,6 +219,13 @@
     const symbols = { USD: '$', AED: 'AED', SAR: 'SAR' };
     let selectedCurrency = 'USD';
 
+    // Default Categories
+    const defaultCategories = [
+      { id: 'subs', name: 'الاشتراكات', icon: 'fa-crown' },
+      { id: 'cards', name: 'بطاقات وألعاب', icon: 'fa-gamepad' },
+      { id: 'boost', name: 'دعم ونمو الحسابات', icon: 'fa-rocket' }
+    ];
+
     const defaultProducts = [
       {
         id: '1', title: 'اشتراك نتفليكس VIP شهر', category: 'subs', priceUSD: 5.00, unitPrice: true,
@@ -238,6 +241,7 @@
       }
     ];
 
+    let categories = JSON.parse(localStorage.getItem('arc_categories')) || defaultCategories;
     let products = JSON.parse(localStorage.getItem('arc_products')) || defaultProducts;
     let orders = JSON.parse(localStorage.getItem('arc_orders')) || [];
     let settings = JSON.parse(localStorage.getItem('arc_settings')) || { whatsapp: '971500000000' };
@@ -251,6 +255,24 @@
       renderCards(currentCategoryFilter);
     }
 
+    function renderFilters() {
+      const container = document.getElementById('filtersContainer');
+      container.innerHTML = `
+        <button class="filter-btn active" onclick="filterCat('all', this)">
+          <i class="fa-solid fa-fire"></i> الكل
+        </button>
+      `;
+
+      categories.forEach(cat => {
+        const iconClass = cat.icon || 'fa-tag';
+        container.innerHTML += `
+          <button class="filter-btn" onclick="filterCat('${cat.id}', this)">
+            <i class="fa-solid ${iconClass}"></i> ${cat.name}
+          </button>
+        `;
+      });
+    }
+
     function renderCards(filter = 'all') {
       currentCategoryFilter = filter;
       const grid = document.getElementById('grid');
@@ -258,7 +280,7 @@
       const list = filter === 'all' ? products : products.filter(p => p.category === filter);
 
       if(list.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">لا توجد منتجات متوفرة حالياً.</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">لا توجد منتجات متوفرة حالياً في هذا القسم.</p>`;
         return;
       }
 
@@ -289,11 +311,9 @@
       });
     }
 
-    function getCatName(cat) {
-      if (cat === 'subs') return 'اشتراكات VIP';
-      if (cat === 'cards') return 'بطاقات رقمية';
-      if (cat === 'boost') return 'نمو حسابات';
-      return 'منتج رقمي';
+    function getCatName(catId) {
+      const found = categories.find(c => c.id === catId);
+      return found ? found.name : 'منتج رقمي';
     }
 
     function filterCat(cat, btn) {
@@ -381,6 +401,7 @@
       window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    renderFilters();
     renderCards();
   </script>
 </body>
