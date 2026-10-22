@@ -35,7 +35,7 @@
       100% { transform: scale(1.35) translate(-40px, 40px); opacity: 0.5; }
     }
 
-    /* Header & Currency Selector */
+    /* Header & Bar */
     header {
       position: sticky; top: 0; z-index: 1000; background: rgba(3, 3, 5, 0.92); backdrop-filter: blur(25px);
       border-bottom: 2px solid var(--accent-red); padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
@@ -48,13 +48,19 @@
     }
     .logo span { color: var(--accent-red); text-shadow: 0 0 20px var(--accent-red); }
 
-    .currency-picker {
-      background: rgba(255, 0, 60, 0.1); border: 1px solid var(--accent-red); color: #fff; padding: 8px 16px;
-      border-radius: 12px; font-weight: 800; font-size: 0.95rem; outline: none; cursor: pointer;
+    /* Currency Box Styling */
+    .currency-box {
+      display: flex; align-items: center; gap: 8px; background: rgba(255, 0, 60, 0.15); border: 2px solid var(--accent-red);
+      padding: 6px 14px; border-radius: 12px; box-shadow: 0 0 15px var(--accent-red-glow);
     }
+    .currency-box label { font-weight: 800; font-size: 0.9rem; color: #fff; }
+    .currency-picker {
+      background: transparent; border: none; color: #fff; font-weight: 900; font-size: 1rem; outline: none; cursor: pointer;
+    }
+    .currency-picker option { background: #09090e; color: #fff; }
 
     /* Hero Banner */
-    .hero { text-align: center; padding: 60px 20px 30px; position: relative; }
+    .hero { text-align: center; padding: 50px 20px 25px; position: relative; }
     .hero-title {
       font-size: 3.4rem; font-weight: 900; line-height: 1.15;
       background: linear-gradient(135deg, #ffffff 0%, #ff4d73 100%);
@@ -144,12 +150,16 @@
   <header>
     <div class="logo"><i class="fa-solid fa-bolt"></i> ARC <span>STORE</span></div>
     
-    <!-- Currency Selector -->
-    <select id="currencySelect" class="currency-picker" onchange="changeCurrency(this.value)">
-      <option value="USD">$ USD (دولار)</option>
-      <option value="AED">AED (درهم اماراتي)</option>
-      <option value="SAR">SAR (ريال سعودي)</option>
-    </select>
+    <!-- Currency Selector Box -->
+    <div class="currency-box">
+      <i class="fa-solid fa-coins" style="color:var(--accent-red)"></i>
+      <label for="currencySelect">العملة:</label>
+      <select id="currencySelect" class="currency-picker" onchange="changeCurrency(this.value)">
+        <option value="USD">USD ($)</option>
+        <option value="AED">AED (درهم)</option>
+        <option value="SAR">SAR (ريال)</option>
+      </select>
+    </div>
   </header>
 
   <section class="hero">
@@ -234,13 +244,15 @@
 
     let currentProd = null;
     let payMethod = 'card';
+    let currentCategoryFilter = 'all';
 
     function changeCurrency(curr) {
       selectedCurrency = curr;
-      renderCards();
+      renderCards(currentCategoryFilter);
     }
 
     function renderCards(filter = 'all') {
+      currentCategoryFilter = filter;
       const grid = document.getElementById('grid');
       grid.innerHTML = '';
       const list = filter === 'all' ? products : products.filter(p => p.category === filter);
@@ -251,7 +263,8 @@
       }
 
       list.forEach(p => {
-        const convertedPrice = (p.priceUSD * rates[selectedCurrency]).toFixed(2);
+        const basePrice = p.priceUSD || p.price || 0;
+        const convertedPrice = (basePrice * rates[selectedCurrency]).toFixed(2);
         const priceDisplay = p.unitPrice ? `${convertedPrice} ${symbols[selectedCurrency]}` : `${convertedPrice} ${symbols[selectedCurrency]} / 1000`;
 
         const card = document.createElement('div');
@@ -318,7 +331,8 @@
     function recalcPrice() {
       if(!currentProd) return;
       const qty = parseFloat(document.getElementById('orderQty').value) || 0;
-      let totalUSD = currentProd.unitPrice ? qty * currentProd.priceUSD : (qty / 1000) * currentProd.priceUSD;
+      const basePrice = currentProd.priceUSD || currentProd.price || 0;
+      let totalUSD = currentProd.unitPrice ? qty * basePrice : (qty / 1000) * basePrice;
       const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2);
       document.getElementById('totalCost').innerText = `${totalConverted} ${symbols[selectedCurrency]}`;
     }
@@ -339,7 +353,8 @@
       }
 
       const target = document.getElementById('targetUrl').value;
-      let totalUSD = currentProd.unitPrice ? qty * currentProd.priceUSD : (qty / 1000) * currentProd.priceUSD;
+      const basePrice = currentProd.priceUSD || currentProd.price || 0;
+      let totalUSD = currentProd.unitPrice ? qty * basePrice : (qty / 1000) * basePrice;
       const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2) + ' ' + symbols[selectedCurrency];
 
       const newOrder = {
