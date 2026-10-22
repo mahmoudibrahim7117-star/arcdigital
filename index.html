@@ -3,359 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARC STORE | العصر الجديد للخدمات الرقمية</title>
+  <title>ARC STORE | المتجر الرقمي المتكامل</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-dark: #050508;
-      --bg-card: rgba(18, 18, 26, 0.7);
-      --bg-card-hover: rgba(28, 28, 40, 0.85);
+      --bg-dark: #030305;
+      --bg-card: rgba(12, 12, 18, 0.85);
       --accent-red: #ff003c;
-      --accent-red-glow: rgba(255, 0, 60, 0.5);
-      --accent-cyan: #00f0ff;
+      --accent-red-bright: #ff1e53;
+      --accent-red-glow: rgba(255, 0, 60, 0.7);
       --text-main: #ffffff;
-      --text-muted: #a0a0b8;
-      --border-glow: rgba(255, 0, 60, 0.3);
+      --text-muted: #9595b2;
+      --border-glow: rgba(255, 0, 60, 0.45);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Cairo', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; position: relative; padding-bottom: 80px; }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      overflow-x: hidden;
-      position: relative;
-      padding-bottom: 80px;
-    }
-
-    /* Ambient Background Glows */
+    /* Atmosphere Glows */
     .bg-glow-1, .bg-glow-2 {
-      position: fixed;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-      filter: blur(140px);
-      z-index: -1;
-      pointer-events: none;
-      animation: pulseGlow 8s infinite alternate;
+      position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(150px); z-index: -1; pointer-events: none;
+      animation: pulseGlow 6s infinite alternate ease-in-out;
     }
-    .bg-glow-1 { top: -100px; right: -100px; background: var(--accent-red); opacity: 0.25; }
-    .bg-glow-2 { bottom: -100px; left: -100px; background: #7928ca; opacity: 0.2; }
+    .bg-glow-1 { top: -120px; right: -120px; background: var(--accent-red); opacity: 0.35; }
+    .bg-glow-2 { bottom: -120px; left: -120px; background: #6100ff; opacity: 0.25; }
 
     @keyframes pulseGlow {
-      0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
-      100% { transform: scale(1.3) translate(-30px, 30px); opacity: 0.35; }
+      0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+      100% { transform: scale(1.35) translate(-40px, 40px); opacity: 0.5; }
     }
 
-    /* Header & Navigation */
+    /* Header & Currency Selector */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(5, 5, 8, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-glow);
-      padding: 18px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      position: sticky; top: 0; z-index: 1000; background: rgba(3, 3, 5, 0.92); backdrop-filter: blur(25px);
+      border-bottom: 2px solid var(--accent-red); padding: 16px 8%; display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 5px 30px rgba(255, 0, 60, 0.25);
     }
 
     .logo {
-      font-family: 'Orbitron', 'Cairo', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-shadow: 0 0 20px var(--accent-red-glow);
+      font-family: 'Orbitron', 'Cairo', sans-serif; font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: #fff;
+      display: flex; align-items: center; gap: 12px; text-shadow: 0 0 25px var(--accent-red-glow);
+    }
+    .logo span { color: var(--accent-red); text-shadow: 0 0 20px var(--accent-red); }
+
+    .currency-picker {
+      background: rgba(255, 0, 60, 0.1); border: 1px solid var(--accent-red); color: #fff; padding: 8px 16px;
+      border-radius: 12px; font-weight: 800; font-size: 0.95rem; outline: none; cursor: pointer;
     }
 
-    .logo span {
-      color: var(--accent-red);
-      animation: neonBlink 3s infinite alternate;
-    }
-
-    @keyframes neonBlink {
-      0%, 100% { text-shadow: 0 0 15px var(--accent-red), 0 0 30px var(--accent-red); }
-      50% { text-shadow: 0 0 5px var(--accent-red); }
-    }
-
-    .hero {
-      text-align: center;
-      padding: 70px 20px 40px;
-      position: relative;
-    }
-
+    /* Hero Banner */
+    .hero { text-align: center; padding: 60px 20px 30px; position: relative; }
     .hero-title {
-      font-size: 3.2rem;
-      font-weight: 900;
-      line-height: 1.2;
-      background: linear-gradient(135deg, #ffffff 0%, #ff758c 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
-      animation: fadeInUp 1s ease forwards;
+      font-size: 3.4rem; font-weight: 900; line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 0%, #ff4d73 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px;
+      text-shadow: 0 0 40px rgba(255, 0, 60, 0.3);
     }
-
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      max-width: 650px;
-      margin: 0 auto 35px;
-      animation: fadeInUp 1.2s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .hero-subtitle { color: var(--text-muted); font-size: 1.2rem; max-width: 680px; margin: 0 auto 30px; }
 
     /* Filters Bar */
-    .filters-container {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-      padding: 0 20px;
-    }
-
+    .filters-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 45px; padding: 0 20px; }
     .filter-btn {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 12px 26px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 60, 0.25); color: #fff; padding: 12px 28px;
+      border-radius: 50px; font-weight: 800; font-size: 1rem; cursor: pointer; backdrop-filter: blur(10px);
+      transition: all 0.35s ease; display: flex; align-items: center; gap: 10px;
     }
-
     .filter-btn:hover, .filter-btn.active {
-      background: var(--accent-red);
-      border-color: var(--accent-red);
-      box-shadow: 0 0 25px var(--accent-red-glow);
-      transform: translateY(-3px) scale(1.03);
+      background: var(--accent-red); border-color: var(--accent-red-bright); box-shadow: 0 0 30px var(--accent-red-glow); transform: translateY(-3px);
     }
 
     /* Products Grid */
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 25px;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-    }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 25px; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 32px; }
 
     .card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(15px);
-      transition: all 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      animation: fadeInUp 0.8s ease;
+      background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 24px; overflow: hidden;
+      backdrop-filter: blur(20px); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
-      opacity: 0;
-      transition: 0.4s;
-    }
-
     .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      border-color: var(--accent-red-glow);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 0, 60, 0.2);
+      transform: translateY(-10px) scale(1.02); border-color: var(--accent-red-bright);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 0, 60, 0.45);
     }
 
-    .card:hover::before {
-      opacity: 1;
+    .card-img-box { position: relative; width: 100%; height: 200px; overflow: hidden; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
+    .card:hover .card-img { transform: scale(1.08); }
+
+    .card-badge {
+      position: absolute; top: 12px; right: 12px; background: rgba(3, 3, 5, 0.85); color: var(--accent-red);
+      border: 1px solid var(--accent-red); font-size: 0.8rem; padding: 4px 14px; border-radius: 20px; font-weight: 800;
     }
 
-    .card-icon-box {
-      width: 60px;
-      height: 60px;
-      background: rgba(255, 0, 60, 0.1);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: var(--accent-red);
-      margin-bottom: 20px;
-      box-shadow: inset 0 0 15px rgba(255, 0, 60, 0.2);
-    }
-
-    .card-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .card-price {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: baseline;
-      gap: 5px;
-    }
-
-    .card-price span {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
+    .card-body { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+    .card-title { font-size: 1.35rem; font-weight: 900; margin-bottom: 10px; }
+    .card-desc { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+    .card-price { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 18px; text-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
     .btn-buy {
-      width: 100%;
-      background: linear-gradient(135deg, var(--accent-red) 0%, #b3002a 100%);
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 5px 20px var(--accent-red-glow);
-      transition: all 0.3s ease;
+      width: 100%; background: linear-gradient(135deg, var(--accent-red) 0%, #a80027 100%); color: #fff; border: none;
+      padding: 15px; border-radius: 14px; font-weight: 900; font-size: 1.05rem; cursor: pointer; display: flex;
+      justify-content: center; align-items: center; gap: 10px; box-shadow: 0 5px 25px var(--accent-red-glow); transition: all 0.3s ease;
     }
+    .btn-buy:hover { box-shadow: 0 8px 35px var(--accent-red-glow); transform: translateY(-2px); }
 
-    .btn-buy:hover {
-      box-shadow: 0 8px 30px rgba(255, 0, 60, 0.7);
-      transform: translateY(-2px);
-    }
-
-    /* Modal Checkout */
+    /* Modal */
     .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(15px);
-      z-index: 2000;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(20px); z-index: 2000;
+      display: none; justify-content: center; align-items: center; padding: 20px;
     }
-
     .modal-box {
-      background: #0f0f17;
-      border: 1px solid var(--border-glow);
-      width: 100%;
-      max-width: 520px;
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: 0 0 50px rgba(255, 0, 60, 0.3);
-      animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: #09090e; border: 2px solid var(--accent-red); width: 100%; max-width: 530px; border-radius: 28px;
+      padding: 30px; box-shadow: 0 0 60px rgba(255, 0, 60, 0.45); animation: zoomIn 0.3s ease;
     }
+    @keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    @keyframes zoomIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
-
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 800; font-size: 0.95rem; }
     .form-control {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      padding: 14px;
-      border-radius: 12px;
-      outline: none;
-      font-size: 1rem;
-      transition: 0.3s;
+      width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 0, 60, 0.3); color: #fff;
+      padding: 14px; border-radius: 12px; outline: none; font-size: 1rem; font-weight: 600;
     }
+    .form-control:focus { border-color: var(--accent-red); box-shadow: 0 0 20px var(--accent-red-glow); }
 
-    .form-control:focus {
-      border-color: var(--accent-red);
-      box-shadow: 0 0 15px var(--accent-red-glow);
-    }
-
-    .pay-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
+    .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
     .pay-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: 0.3s;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 0, 60, 0.3); color: #fff; padding: 12px;
+      border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;
     }
-
-    .pay-btn.selected {
-      border-color: var(--accent-red);
-      background: rgba(255, 0, 60, 0.15);
-      box-shadow: 0 0 15px var(--accent-red-glow);
-    }
+    .pay-btn.selected { border-color: var(--accent-red); background: rgba(255, 0, 60, 0.25); box-shadow: 0 0 20px var(--accent-red-glow); }
   </style>
 </head>
 <body>
@@ -365,19 +143,25 @@
 
   <header>
     <div class="logo"><i class="fa-solid fa-bolt"></i> ARC <span>STORE</span></div>
+    
+    <!-- Currency Selector -->
+    <select id="currencySelect" class="currency-picker" onchange="changeCurrency(this.value)">
+      <option value="USD">$ USD (دولار)</option>
+      <option value="AED">AED (درهم اماراتي)</option>
+      <option value="SAR">SAR (ريال سعودي)</option>
+    </select>
   </header>
 
   <section class="hero">
-    <h1 class="hero-title">عالم زيادة التفاعل الفاخر</h1>
-    <p class="hero-subtitle">تزويد احترافي وسريع لمختلف منصات التواصل الاجتماعي بأعلى مستويات الثبات والضمان.</p>
+    <h1 class="hero-title">متجر ARC STORE الرقمي</h1>
+    <p class="hero-subtitle">اشتراكات VIP، خدمات نمو الحسابات، وبطاقات التفعيل بأفضل الأداء والسرعة.</p>
   </section>
 
   <div class="filters-container">
     <button class="filter-btn active" onclick="filterCat('all', this)"><i class="fa-solid fa-fire"></i> الكل</button>
-    <button class="filter-btn" onclick="filterCat('tiktok', this)"><i class="fa-brands fa-tiktok"></i> تيك توك</button>
-    <button class="filter-btn" onclick="filterCat('instagram', this)"><i class="fa-brands fa-instagram"></i> إنستغرام</button>
-    <button class="filter-btn" onclick="filterCat('youtube', this)"><i class="fa-brands fa-youtube"></i> يوتيوب</button>
-    <button class="filter-btn" onclick="filterCat('snapchat', this)"><i class="fa-brands fa-snapchat"></i> سناب شات</button>
+    <button class="filter-btn" onclick="filterCat('subs', this)"><i class="fa-solid fa-crown"></i> الاشتراكات</button>
+    <button class="filter-btn" onclick="filterCat('cards', this)"><i class="fa-solid fa-gamepad"></i> بطاقات وألعاب</button>
+    <button class="filter-btn" onclick="filterCat('boost', this)"><i class="fa-solid fa-rocket"></i> دعم ونمو الحسابات</button>
   </div>
 
   <main class="container">
@@ -388,48 +172,60 @@
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-        <h3 id="modalTitle" style="font-size: 1.4rem; font-weight: 800;">تأكيد الطلب</h3>
-        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size: 1.5rem;" onclick="closeCheckout()"></i>
+        <h3 id="modalTitle" style="font-size: 1.4rem; font-weight: 900;">تأكيد الطلب</h3>
+        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size: 1.5rem; color: var(--accent-red);" onclick="closeCheckout()"></i>
       </div>
 
       <form id="payForm" onsubmit="executeOrder(event)">
         <div class="form-group">
-          <label>الكمية المطلوبة</label>
-          <input type="number" id="orderQty" class="form-control" value="1000" min="100" step="100" oninput="recalcPrice()">
+          <label id="qtyLabel">الكمية المطلوبة</label>
+          <input type="number" id="orderQty" class="form-control" oninput="recalcPrice()">
+          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.8rem; display: none; margin-top: 5px;">* الحد الأدنى لطلب النمو هو 250 عدداً</small>
         </div>
 
         <div class="form-group">
-          <label>رابط الحساب / المقطع</label>
-          <input type="url" id="targetUrl" class="form-control" placeholder="https://..." required>
+          <label>رابط الحساب / معرف المستخدم / الإيميل للتفعيل</label>
+          <input type="text" id="targetUrl" class="form-control" placeholder="أدخل بيانات التفعيل هنا..." required>
         </div>
 
         <div class="form-group">
-          <label>اختر طريقة الدفع المفضلة</label>
+          <label>طريقة الدفع</label>
           <div class="pay-options">
             <div class="pay-btn selected" id="optCard" onclick="selectPay('card')"><i class="fa-solid fa-credit-card"></i> بطاقة ائتمان</div>
             <div class="pay-btn" id="optApple" onclick="selectPay('apple')"><i class="fa-brands fa-apple"></i> Apple Pay</div>
           </div>
         </div>
 
-        <div style="background: rgba(255,0,60,0.1); border: 1px dashed var(--accent-red); padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-          <span>المبلغ الإجمالي:</span>
-          <span id="totalCost" style="font-size: 1.5rem; font-weight: 900; color: var(--accent-red);">0.00 $</span>
+        <div style="background: rgba(255,0,60,0.15); border: 1px dashed var(--accent-red); padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 800;">المبلغ الإجمالي:</span>
+          <span id="totalCost" style="font-size: 1.6rem; font-weight: 900; color: var(--accent-red);">0.00</span>
         </div>
 
-        <button type="submit" class="btn-buy" style="background: #00c853;">
-          <i class="fa-brands fa-whatsapp"></i> الدفع وتأكيد الطلب
+        <button type="submit" class="btn-buy" style="background: #00c853; box-shadow: 0 5px 25px rgba(0, 200, 83, 0.4);">
+          <i class="fa-brands fa-whatsapp"></i> تأكيد الطلب والدفع عبر الواتساب
         </button>
       </form>
     </div>
   </div>
 
   <script>
+    const rates = { USD: 1, AED: 3.67, SAR: 3.75 };
+    const symbols = { USD: '$', AED: 'AED', SAR: 'SAR' };
+    let selectedCurrency = 'USD';
+
     const defaultProducts = [
-      { id: '1', title: 'متابعين تيك توك حقيقيين', category: 'tiktok', price: 3.50, desc: 'حسابات نشطة وسرعة عالية في التنفيذ مع ضمان الثبات.' },
-      { id: '2', title: 'مشاهدات تيك توك خارقة', category: 'tiktok', price: 0.10, desc: 'تزويد فوري بمليارات المشاهدات خلال ثوانٍ معدودة.' },
-      { id: '3', title: 'متابعين إنستغرام VIP', category: 'instagram', price: 2.80, desc: 'جودة استثنائية بدون نقص مع خدمة إعادة التعبئة.' },
-      { id: '4', title: 'مشتركين يوتيوب مضمونين', category: 'youtube', price: 12.00, desc: 'دعم القنوات والوصول لشرط تحقيق الربح بأمان.' },
-      { id: '5', title: 'متابعين سناب شات', category: 'snapchat', price: 8.50, desc: 'رفع عدد المتابعين للملفات الشخصية والمؤسسية.' }
+      {
+        id: '1', title: 'اشتراك نتفليكس VIP شهر', category: 'subs', priceUSD: 5.00, unitPrice: true,
+        image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=600&q=80', desc: 'حساب Ultra HD 4K ملف شخصي برقم سري وخاص بك.'
+      },
+      {
+        id: '2', title: 'اشتراك شاهد VIP الرياضية', category: 'subs', priceUSD: 8.50, unitPrice: true,
+        image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&q=80', desc: 'شاهد الدوريات والمسلسلات بجودة عالية بدون إعلانات.'
+      },
+      {
+        id: '3', title: 'متابعين تيك توك حقيقيين', category: 'boost', priceUSD: 3.50, unitPrice: false,
+        image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80', desc: 'تزويد سريع وثبات عالي للحساب (السعر لكل 1000 متابع - الحد الأدنى 250).'
+      }
     ];
 
     let products = JSON.parse(localStorage.getItem('arc_products')) || defaultProducts;
@@ -439,34 +235,52 @@
     let currentProd = null;
     let payMethod = 'card';
 
+    function changeCurrency(curr) {
+      selectedCurrency = curr;
+      renderCards();
+    }
+
     function renderCards(filter = 'all') {
       const grid = document.getElementById('grid');
       grid.innerHTML = '';
-
       const list = filter === 'all' ? products : products.filter(p => p.category === filter);
 
+      if(list.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">لا توجد منتجات متوفرة حالياً.</p>`;
+        return;
+      }
+
       list.forEach(p => {
-        let icon = 'fa-solid fa-bolt';
-        if (p.category === 'tiktok') icon = 'fa-brands fa-tiktok';
-        if (p.category === 'instagram') icon = 'fa-brands fa-instagram';
-        if (p.category === 'youtube') icon = 'fa-brands fa-youtube';
-        if (p.category === 'snapchat') icon = 'fa-brands fa-snapchat';
+        const convertedPrice = (p.priceUSD * rates[selectedCurrency]).toFixed(2);
+        const priceDisplay = p.unitPrice ? `${convertedPrice} ${symbols[selectedCurrency]}` : `${convertedPrice} ${symbols[selectedCurrency]} / 1000`;
 
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <div>
-            <div class="card-icon-box"><i class="${icon}"></i></div>
-            <h3 class="card-title">${p.title}</h3>
-            <p class="card-desc">${p.desc || 'خدمة سريعة ومضمونة.'}</p>
+          <div class="card-img-box">
+            <img src="${p.image}" class="card-img" alt="${p.title}">
+            <span class="card-badge">${getCatName(p.category)}</span>
           </div>
-          <div>
-            <div class="card-price">${p.price}$ <span>/ لكل 1000</span></div>
-            <button class="btn-buy" onclick="openCheckout('${p.id}')"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">${p.title}</h3>
+              <p class="card-desc">${p.desc || 'منتج رقمي متوفر للتسليم الفوري.'}</p>
+            </div>
+            <div>
+              <div class="card-price">${priceDisplay}</div>
+              <button class="btn-buy" onclick="openCheckout('${p.id}')"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button>
+            </div>
           </div>
         `;
         grid.appendChild(card);
       });
+    }
+
+    function getCatName(cat) {
+      if (cat === 'subs') return 'اشتراكات VIP';
+      if (cat === 'cards') return 'بطاقات رقمية';
+      if (cat === 'boost') return 'نمو حسابات';
+      return 'منتج رقمي';
     }
 
     function filterCat(cat, btn) {
@@ -478,21 +292,35 @@
     function openCheckout(id) {
       currentProd = products.find(p => p.id === id);
       if(!currentProd) return;
+
       document.getElementById('modalTitle').innerText = currentProd.title;
-      document.getElementById('orderQty').value = 1000;
+      const qtyInput = document.getElementById('orderQty');
+      const qtyNotice = document.getElementById('qtyNotice');
+
+      if (currentProd.category === 'boost' || !currentProd.unitPrice) {
+        qtyInput.value = 250;
+        qtyInput.min = 250;
+        qtyInput.step = 50;
+        qtyNotice.style.display = 'block';
+      } else {
+        qtyInput.value = 1;
+        qtyInput.min = 1;
+        qtyInput.step = 1;
+        qtyNotice.style.display = 'none';
+      }
+
       recalcPrice();
       document.getElementById('checkoutModal').style.display = 'flex';
     }
 
-    function closeCheckout() {
-      document.getElementById('checkoutModal').style.display = 'none';
-    }
+    function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
 
     function recalcPrice() {
       if(!currentProd) return;
       const qty = parseFloat(document.getElementById('orderQty').value) || 0;
-      const total = ((qty / 1000) * currentProd.price).toFixed(2);
-      document.getElementById('totalCost').innerText = total + ' $';
+      let totalUSD = currentProd.unitPrice ? qty * currentProd.priceUSD : (qty / 1000) * currentProd.priceUSD;
+      const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2);
+      document.getElementById('totalCost').innerText = `${totalConverted} ${symbols[selectedCurrency]}`;
     }
 
     function selectPay(type) {
@@ -503,30 +331,36 @@
 
     function executeOrder(e) {
       e.preventDefault();
-      const qty = document.getElementById('orderQty').value;
-      const url = document.getElementById('targetUrl').value;
-      const total = ((qty / 1000) * currentProd.price).toFixed(2);
+      const qty = parseFloat(document.getElementById('orderQty').value);
+
+      if ((currentProd.category === 'boost' || !currentProd.unitPrice) && qty < 250) {
+        alert('أقل كمية لخدمات النمو هي 250!');
+        return;
+      }
+
+      const target = document.getElementById('targetUrl').value;
+      let totalUSD = currentProd.unitPrice ? qty * currentProd.priceUSD : (qty / 1000) * currentProd.priceUSD;
+      const totalConverted = (totalUSD * rates[selectedCurrency]).toFixed(2) + ' ' + symbols[selectedCurrency];
 
       const newOrder = {
         id: 'ORD-' + Date.now(),
         productTitle: currentProd.title,
         quantity: qty,
-        totalPrice: total + ' $',
-        targetUrl: url,
+        totalPrice: totalConverted,
+        targetUrl: target,
         payMethod: payMethod === 'card' ? 'بطاقة ائتمانية' : 'Apple Pay',
-        status: 'قيد الانتظار',
         date: new Date().toLocaleString('ar-EG')
       };
 
       orders.unshift(newOrder);
       localStorage.setItem('arc_orders', JSON.stringify(orders));
 
-      const msg = `*طلب جديد متجر ARC STORE* ⚡\n\n` +
-        `• *الخدمة:* ${currentProd.title}\n` +
+      const msg = `*طلب جديد من متجر ARC STORE* ⚡\n\n` +
+        `• *المنتج:* ${currentProd.title}\n` +
         `• *الكمية:* ${qty}\n` +
-        `• *السعر الإجمالي:* ${total} $\n` +
+        `• *المبلغ الإجمالي:* ${totalConverted}\n` +
         `• *طريقة الدفع:* ${newOrder.payMethod}\n` +
-        `• *الرابط:* ${url}\n\nيرجى تأكيد التنفيذ.`;
+        `• *بيانات التفعيل/الرابط:* ${target}\n\nيرجى تأكيد الطلب.`;
 
       closeCheckout();
       window.open(`https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
