@@ -3,35 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARC STORE | المتجر الرقمي المتكامل</title>
+  <title>ARC STORE | المتجر الرقمي</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
       --bg-dark: #030305;
-      --bg-card: rgba(12, 12, 18, 0.85);
+      --bg-card: rgba(12, 12, 18, 0.88);
       --accent-red: #ff003c;
       --accent-red-bright: #ff1e53;
-      --accent-red-glow: rgba(255, 0, 60, 0.7);
+      --accent-red-glow: rgba(255, 0, 60, 0.6);
       --text-main: #ffffff;
       --text-muted: #9595b2;
-      --border-glow: rgba(255, 0, 60, 0.45);
+      --border-glow: rgba(255, 0, 60, 0.35);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
     body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; position: relative; padding-bottom: 80px; }
 
+    /* Atmosphere Glows */
     .bg-glow-1, .bg-glow-2 {
-      position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(150px); z-index: -1; pointer-events: none;
+      position: fixed; width: 500px; height: 500px; border-radius: 50%; filter: blur(160px); z-index: -1; pointer-events: none;
       animation: pulseGlow 6s infinite alternate ease-in-out;
     }
-    .bg-glow-1 { top: -120px; right: -120px; background: var(--accent-red); opacity: 0.35; }
-    .bg-glow-2 { bottom: -120px; left: -120px; background: #6100ff; opacity: 0.25; }
+    .bg-glow-1 { top: -120px; right: -120px; background: var(--accent-red); opacity: 0.3; }
+    .bg-glow-2 { bottom: -120px; left: -120px; background: #6100ff; opacity: 0.2; }
 
     @keyframes pulseGlow {
-      0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
-      100% { transform: scale(1.35) translate(-40px, 40px); opacity: 0.5; }
+      0% { transform: scale(1); opacity: 0.25; }
+      100% { transform: scale(1.3); opacity: 0.4; }
     }
 
     header {
@@ -47,7 +48,7 @@
     .logo span { color: var(--accent-red); text-shadow: 0 0 20px var(--accent-red); }
 
     .currency-box {
-      display: flex; align-items: center; gap: 8px; background: rgba(255, 0, 60, 0.15); border: 2px solid var(--accent-red);
+      display: flex; align-items: center; gap: 8px; background: rgba(255, 0, 60, 0.15); border: 1.5px solid var(--accent-red);
       padding: 6px 14px; border-radius: 12px; box-shadow: 0 0 15px var(--accent-red-glow);
     }
     .currency-box label { font-weight: 800; font-size: 0.9rem; color: #fff; }
@@ -63,11 +64,11 @@
     }
     .hero-subtitle { color: var(--text-muted); font-size: 1.2rem; max-width: 680px; margin: 0 auto 30px; }
 
-    .filters-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 45px; padding: 0 20px; }
+    .filters-container { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 45px; padding: 0 20px; }
     .filter-btn {
-      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 60, 0.25); color: #fff; padding: 12px 28px;
-      border-radius: 50px; font-weight: 800; font-size: 1rem; cursor: pointer; backdrop-filter: blur(10px);
-      transition: all 0.35s ease; display: flex; align-items: center; gap: 10px;
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 60, 0.25); color: #fff; padding: 12px 26px;
+      border-radius: 50px; font-weight: 800; font-size: 0.98rem; cursor: pointer; backdrop-filter: blur(10px);
+      transition: all 0.35s ease; display: flex; align-items: center; gap: 8px;
     }
     .filter-btn:hover, .filter-btn.active {
       background: var(--accent-red); border-color: var(--accent-red-bright); box-shadow: 0 0 30px var(--accent-red-glow); transform: translateY(-3px);
@@ -107,6 +108,12 @@
     }
     .btn-buy:hover { box-shadow: 0 8px 35px var(--accent-red-glow); transform: translateY(-2px); }
 
+    .empty-msg {
+      grid-column: 1/-1; text-align: center; padding: 60px 20px; background: var(--bg-card); border: 1px dashed var(--border-glow);
+      border-radius: 24px; color: var(--text-muted); font-size: 1.1rem;
+    }
+
+    /* Modal */
     .modal {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(20px); z-index: 2000;
       display: none; justify-content: center; align-items: center; padding: 20px;
@@ -153,15 +160,17 @@
 
   <section class="hero">
     <h1 class="hero-title">متجر ARC STORE الرقمي</h1>
-    <p class="hero-subtitle">اشتراكات VIP، خدمات نمو الحسابات، وبطاقات التفعيل بأفضل الأداء والسرعة.</p>
+    <p class="hero-subtitle">متجر الخدمات والمنتجات الرقمية الشامل</p>
   </section>
 
+  <!-- أزرار الأقسام الديناميكية -->
   <div class="filters-container" id="filtersContainer"></div>
 
   <main class="container">
     <div class="products-grid" id="grid"></div>
   </main>
 
+  <!-- نافذة الطلب والتحويل -->
   <div class="modal" id="checkoutModal">
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
@@ -173,7 +182,7 @@
         <div class="form-group">
           <label id="qtyLabel">الكمية المطلوبة</label>
           <input type="number" id="orderQty" class="form-control" oninput="recalcPrice()">
-          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.8rem; display: none; margin-top: 5px;">* الحد الأدنى للطلب هو 250 عدداً</small>
+          <small id="qtyNotice" style="color: var(--accent-red); font-size: 0.8rem; display: none; margin-top: 5px;">* الحد الأدنى لطلبات هذا القسم هو 250 عدداً</small>
         </div>
 
         <div class="form-group">
@@ -206,24 +215,8 @@
     const symbols = { USD: '$', AED: 'AED', SAR: 'SAR' };
     let selectedCurrency = 'USD';
 
-    const defaultCategories = [
-      { id: 'subs', name: 'الاشتراكات', type: 'unit', icon: 'fa-crown' },
-      { id: 'boost', name: 'دعم ونمو الحسابات', type: 'boost', icon: 'fa-rocket' }
-    ];
-
-    const defaultProducts = [
-      {
-        id: '1', title: 'اشتراك نتفليكس VIP شهر', category: 'subs', priceUSD: 5.00,
-        image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=600&q=80', desc: 'حساب Ultra HD 4K ملف شخصي برقم سري وخاص بك.'
-      },
-      {
-        id: '2', title: 'متابعين تيك توك حقيقيين', category: 'boost', priceUSD: 3.50,
-        image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80', desc: 'تزويد سريع وثبات عالي للحساب (السعر لكل 1000 متابع).'
-      }
-    ];
-
-    let categories = JSON.parse(localStorage.getItem('arc_categories')) || defaultCategories;
-    let products = JSON.parse(localStorage.getItem('arc_products')) || defaultProducts;
+    let categories = JSON.parse(localStorage.getItem('arc_categories')) || [];
+    let products = JSON.parse(localStorage.getItem('arc_products')) || [];
     let orders = JSON.parse(localStorage.getItem('arc_orders')) || [];
     let settings = JSON.parse(localStorage.getItem('arc_settings')) || { whatsapp: '971500000000' };
 
@@ -261,7 +254,7 @@
       const list = filter === 'all' ? products : products.filter(p => p.category === filter);
 
       if(list.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">لا توجد منتجات متوفرة حالياً في هذا القسم.</p>`;
+        grid.innerHTML = `<div class="empty-msg"><i class="fa-solid fa-box-open" style="font-size: 2rem; margin-bottom: 10px; color: var(--accent-red);"></i><br>لا توجد منتجات مضافة حالياً بالمتجر. أضف منتجاتك من لوحة التحكم (admin.html)</div>`;
         return;
       }
 
@@ -276,8 +269,8 @@
         card.className = 'card';
         card.innerHTML = `
           <div class="card-img-box">
-            <img src="${p.image}" class="card-img" alt="${p.title}">
-            <span class="card-badge">${cat ? cat.name : 'قسم'}</span>
+            <img src="${p.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80'}" class="card-img" alt="${p.title}">
+            <span class="card-badge">${cat ? cat.name : 'منتج'}</span>
           </div>
           <div class="card-body">
             <div>
